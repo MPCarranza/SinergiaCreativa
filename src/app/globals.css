@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color:#171717;
+  font-family: AgrandirRegular, Helvetica, sans-serif;
+}
+
+
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombrado suave */
+}
+
+/* .bg-image {
+  background-image: url('/background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+} */
+
+@font-face {
+  font-family: "AgrandirRegular";
+  src: url("../../public/fonts/AgrandirRegular.otf");
+}@font-face {
+  font-family: "AgrandirThin";
+  src: url("../../public//fonts/AgrandirThin.otf");
+}@font-face {
+  font-family: "AgrandirThinItalic";
+  src: url("../../public/fonts/AgrandirThinItalic.otf");
+}@font-face {
+  font-family: "AgrandirWide";
+  src: url("../../public/fonts/AgrandirWide.otf");
+}@font-face {
+  font-family: "AgrandirWideItalic";
+  src: url("../../public/fonts/AgrandirWideItalic.otf");
+}
+
+
+.AgrandirRegular {
+  font-family: "AgrandirRegular";
+}
+.AgrandirThin {
+  font-family: "AgrandirThin";
+}.AgrandirThinItalic {
+  font-family: "AgrandirThinItalic";
+}.AgrandirWide {
+  font-family: "AgrandirWide";
+}.AgrandirWideItalic {
+  font-family: "AgrandirWideItalic";
+}
