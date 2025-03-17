@@ -1,7 +1,8 @@
+import Image from "next/image";
 const HeroSection = () => {
   return (
     <section className="flex flex-col md:flex-row items-center justify-center">
-      <img
+      <Image
         src="/hero-image.png"
         alt="Hero"
         className="w-full md:w-2/4 h-auto object-cover rounded-r-3xl"
