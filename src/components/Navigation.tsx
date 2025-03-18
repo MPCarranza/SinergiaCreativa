@@ -10,7 +10,7 @@ interface LinkItem {
 
 const links: LinkItem[] = [
   {
-    name: "Asistente de metas",
+    name: "Asistente de ventas",
     path: "/",
   },
   {

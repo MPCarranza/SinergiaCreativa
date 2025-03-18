@@ -1,4 +1,3 @@
-// ActionPlan.tsx
 import React from "react";
 import { CommissionResult } from "../types/types";
 
@@ -11,41 +10,42 @@ const ActionPlan: React.FC<ActionPlanProps> = ({ data }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">
-        Plan de Acción desde Hoy ({today})
-      </h2>
+      <h2 className="text-xl font-semibold mb-4">Resultados</h2>
       <ul className="space-y-4">
         <li className="flex items-center">
           <span className="mr-2">✅</span> Ganancia neta hoy:{" "}
-          <strong>${data.netProfitToday.toLocaleString()}</strong>
+          <strong>&nbsp;${data.netProfitToday.toLocaleString()}</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Ventas requeridas en ARS:{" "}
-          <strong>${data.salesRequiredARS.toLocaleString()}</strong>
+          <strong>&nbsp;${data.salesRequiredARS.toLocaleString()}</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Volumen en carrera en USD:{" "}
-          <strong>{data.volumeInRaceUSD.toLocaleString()} USD</strong>
+          <strong>&nbsp;{data.volumeInRaceUSD.toLocaleString()} USD</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Total de ventas en el mes:{" "}
-          <strong>{data.totalSales}</strong>
+          <strong>&nbsp;{data.totalSales}</strong>
+        </li>
+        <h2 className="text-xl font-semibold mb-4">
+          Plan de Acción desde Hoy ({today})
+        </h2>
+        <li className="flex items-center">
+          <span className="mr-2">✅</span> Nuevos datos a prospectar:{" "}
+          <strong>&nbsp;{data.newProspects}</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Mínimo de presentaciones por mes:{" "}
-          <strong>{data.minPresentationsMonth}</strong>
+          <strong>&nbsp;{data.minPresentationsMonth}</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Mínimo de presentaciones por semana:{" "}
-          <strong>{data.minPresentationsWeek}</strong>
-        </li>
-        <li className="flex items-center">
-          <span className="mr-2">✅</span> Nuevos datos a prospectar:{" "}
-          <strong>{data.newProspects}</strong>
+          <strong>&nbsp;{data.minPresentationsWeek}</strong>
         </li>
         <li className="flex items-center">
           <span className="mr-2">✅</span> Capacitación mínima sugerida:{" "}
-          <strong>20HS semanales</strong>
+          <strong>&nbsp;20hs semanales.</strong>
         </li>
       </ul>
     </div>

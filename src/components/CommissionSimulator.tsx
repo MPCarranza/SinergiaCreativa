@@ -1,7 +1,6 @@
-// CommissionSimulator.tsx
 import React, { useState } from "react";
 import { products, commissionOptions, IVA } from "../utils/constants";
-import { Product, CommissionResult } from "../types/types";
+import { Product, CommissionResult, Commission } from "../types/types";
 
 interface CommissionSimulatorProps {
   onCalculate: (result: CommissionResult) => void;
@@ -13,7 +12,9 @@ const CommissionSimulator: React.FC<CommissionSimulatorProps> = ({
   const [averageTicketUSD, setAverageTicketUSD] = useState<string>("");
   const [dollarValue, setDollarValue] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<Product>(products[1]); // Producto B por defecto
-  const [selectedCommission, setSelectedCommission] = useState<number>(15); // Comisión inicial: 15%
+  const [selectedCommission, setSelectedCommission] = useState<Commission>(
+    commissionOptions[0]
+  ); // Comisión inicial: 15%
   const [monthlyGoalARS, setMonthlyGoalARS] = useState<string>("");
 
   const handleInputChange = (
@@ -39,8 +40,7 @@ const CommissionSimulator: React.FC<CommissionSimulatorProps> = ({
     }
 
     // Calcular el salesFactor
-    const salesFactor =
-      (100 / selectedCommission) * (1 - (selectedProduct.profitMargin || 0));
+    const salesFactor = selectedCommission.profitMargin;
 
     // Calcular "Ventas requeridas en ARS"
     const salesRequiredARS = numericMonthlyGoalARS * IVA * salesFactor;
@@ -53,16 +53,16 @@ const CommissionSimulator: React.FC<CommissionSimulatorProps> = ({
 
     // Calcular la ganancia neta hoy
     const netProfitToday = Math.round(
-      (selectedProduct.price / IVA) * (selectedCommission / 100)
+      (selectedProduct.price / IVA) * (selectedCommission.commission / 100)
     );
 
     // Calcular el mínimo de presentaciones por mes (redondeado al entero correcto)
     const minPresentationsMonth = Math.round(
-      totalSales / selectedProduct.closingRate
+      totalSales / selectedCommission.closingRate
     );
 
     // Calcular el mínimo de presentaciones por semana (redondeado al entero correcto)
-    const minPresentationsWeek = Math.round(minPresentationsMonth / 4);
+    const minPresentationsWeek = Math.round(minPresentationsMonth / 4) + 1;
 
     // Calcular nuevos datos a prospectar (redondeado al entero correcto)
     const newProspects = Math.round(totalSales * 6);
@@ -112,18 +112,22 @@ const CommissionSimulator: React.FC<CommissionSimulatorProps> = ({
             Comisión actual
           </label>
           <select
-            value={selectedCommission}
-            onChange={(e) => setSelectedCommission(parseFloat(e.target.value))}
+            value={selectedCommission?.commission} // Solo usamos selectedCommission ya que nunca será nulo
+            onChange={(e) => {
+              const selectedValue = parseFloat(e.target.value); // Obtener el valor seleccionado
+              const selectedOption = commissionOptions.find(
+                (option) => option.commission === selectedValue
+              ); // Buscar el objeto correspondiente en el array
+              if (selectedOption) {
+                setSelectedCommission(selectedOption); // Solo seteamos si encontramos un valor válido
+              }
+            }}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            {commissionOptions.map(
-              (
-                commission: number // Agregar el tipo "number"
-              ) => (
-                <option key={commission} value={commission}>
-                  {commission}%
-                </option>
-              )
-            )}
+            {commissionOptions.map((option: Commission) => (
+              <option key={option.commission} value={option.commission}>
+                {option.commission}% {/* Muestra el valor de la comisión */}
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -150,9 +154,9 @@ const CommissionSimulator: React.FC<CommissionSimulatorProps> = ({
           </label>
           <input
             type="text"
-            value={monthlyGoalARS}
+            value={`$ ${Number(monthlyGoalARS).toLocaleString("es-ES")}`}
             onChange={(e) => handleInputChange(e, setMonthlyGoalARS)}
-            placeholder="Ej: 800000"
+            placeholder="Ej: $800.000"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>

@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
       <div className="min-h-screen bg-gray-100 p-4 rounded-t-2xl">
         <div className="container mx-auto mt-8">
           <h1 className="text-3xl font-bold text-center mb-8">
-            Asistente de Metas Mensuales
+            Asistente de Ventas
           </h1>
           <UserDetails />
           <SalesAsistant />
